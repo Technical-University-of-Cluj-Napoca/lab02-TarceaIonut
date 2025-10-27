@@ -1,6 +1,9 @@
 import datetime
-from distutils.file_util import write_file
-from colorama import *
+
+from colorama import Fore
+
+
+#from colorama import *
 
 def smart_log(*args, **kwargs) -> None:
     timestamp:bool = True
@@ -24,8 +27,9 @@ def smart_log(*args, **kwargs) -> None:
         res_str = res_str + datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S ")
     if date:
         res_str = res_str + datetime.datetime.strftime(datetime.datetime.now(), "%Y-%m-%d ")
-
-    write_file(save_to, res_str)
+    if save_to != "":
+        with open(save_to, "w") as file:
+            file.write(res_str)
     actual_color = None
     if level == "info":
         res_str += "[INFO] "
@@ -47,8 +51,7 @@ def smart_log(*args, **kwargs) -> None:
     else:
         print(res_str)
 
-    write_file(save_to, res_str)
 
     pass
 
-#smart_log("System star" ,date=True, Level="error", color=True)
+smart_log("System star" ,date=True, Level="error", color=True)
